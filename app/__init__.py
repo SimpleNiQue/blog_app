@@ -1,14 +1,17 @@
 import os
 
 from flask import Flask
-
+from . import models, auth
 
 def create_app(test_config=None):
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    from . import models
     
+    # Initialise Database Here
     models.init_app(app)
+
+    # Register Blueprint here
+    app.register_blueprint(auth.bp)
 
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -30,14 +33,6 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    # a simple page that says hello
-
-    @app.route("/hello")
-    def hello():
-        return {
-            "content": "Hello, World"
-        }
     
     return app
 
