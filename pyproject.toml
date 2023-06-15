@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "url-shortener"
+version = "0.1.0"
+description = "My URL shortner API service with Flask."
+authors = ["SimpleNiQue <simplenick01@gmail.com>"]
+readme = "README.md"
+packages = [{include = "url_shortener"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.3.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
