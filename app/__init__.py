@@ -6,6 +6,10 @@ from flask import Flask
 def create_app(test_config=None):
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    from . import models
+    
+    models.init_app(app)
+
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(
@@ -29,10 +33,11 @@ def create_app(test_config=None):
 
     # a simple page that says hello
 
-    @app.route("hello")
+    @app.route("/hello")
     def hello():
         return {
             "content": "Hello, World"
         }
     
     return app
+
