@@ -51,6 +51,8 @@ def login():
         error = None
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (username,)
+    
+    
         ).fetchone()
 
         if user is None:
@@ -67,3 +69,40 @@ def login():
         flash(error)
 
     return render_template('auth/login.html')
+
+
+@bp.before_app_request
+def load_logged_in_user():
+    """This function checks if a user's id is stored in that session, 
+    no matter what URL is requested"""
+
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+    
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(
+        url_for('index')
+    )
+
+
+def login_required(view):
+    """Creating, editing, and deleting blog posts will require a user to be
+      logged in. A decorator can be used to check this for each view it's applied to"""
+    
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        
+        return view(**kwargs)
+    
+    return wrapped_view
