@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from . import models, auth
+from . import models, auth, blog
 
 def create_app(test_config=None):
     # Create and configure the app
@@ -11,7 +11,10 @@ def create_app(test_config=None):
     models.init_app(app)
 
     # Register Blueprint here
-    app.register_blueprint(auth.bp)
+    app.register_blueprint(auth.bp) # auth bluprint
+    app.register_blueprint(blog.bp) # blog blueprint
+
+    app.add_url_rule('/', endpoint='index')
 
     app.config.from_mapping(
         SECRET_KEY='dev',
