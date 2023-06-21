@@ -30,3 +30,8 @@ def app():
     os.close(db_fd)
     os.unlink(db_path)
 
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
