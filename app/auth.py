@@ -1,3 +1,6 @@
+"""This contains the blueprint for the authorization including login,
+    logout and registraion logic respectively"""
+
 import functools
 
 from flask import (
@@ -6,6 +9,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.models import get_db
+
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
