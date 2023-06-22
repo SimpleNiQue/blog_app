@@ -1,7 +1,11 @@
+"""The blog blueprint containing all logic for the blog app including
+    index, create, update and delete logic respectively."""
+
 from flask import (
     url_for, render_template, Blueprint,
     flash, g, redirect, request
     )
+
 from werkzeug.exceptions import abort
 
 from app.auth import login_required
