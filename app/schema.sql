@@ -1,12 +1,14 @@
     DROP TABLE IF EXISTS user;
     DROP TABLE IF EXISTS post;
 
+-- The Command for user table
     CREATE TABLE user(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL
     );
 
+-- the post query
     CREATE TABLE post(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         author_id INTEGER NOT NULL,
